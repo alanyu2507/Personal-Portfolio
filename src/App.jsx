@@ -1,12 +1,19 @@
-import MyScene from './scenes/bedroom';
+import Bedroom from './scenes/bedroom';
 import './App.css';
+
+// App.jsx
+import { SceneProvider } from "./contexts/SceneContext";
+
+import ButtonPanel from "./components/ButtonPanel";
 
 function App() {
   return (
-    <div className="App">
-      <MyScene />
-    </div>
+    <SceneProvider>
+      <Bedroom />
+      <ButtonPanel />
+    </SceneProvider>
   );
 }
 
 export default App;
+
