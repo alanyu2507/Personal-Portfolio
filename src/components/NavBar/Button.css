@@ -1,0 +1,38 @@
+/* styles/Button.css */
+
+.custom-button {
+  font-family: 'narrow_rectangle-7', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: white;
+  width: fit-content;  
+
+  background: rgba(255, 255, 255, 0.0); /* semi-transparent white */
+  border: none;                
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  
+
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 12px;             
+  height: auto;                
+  line-height: 1.2;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 0;
+  transition: background 0.3s, transform 0.2s, border-color 0.5s ease;
+}
+
+.custom-button:hover {
+  
+    border-left: 1px solid rgba(255, 255, 255, 0.5); /* thin white border */
+    border-right: 1px solid rgba(255, 255, 255, 0.5); /* thin white border */
+    border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+    border-radius: 0;
+  
+}

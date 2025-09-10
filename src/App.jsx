@@ -1,16 +1,24 @@
 import Bedroom from './scenes/bedroom';
+import ButtonPanel from "./components/NavBar/ButtonPanel";
+import IntroBox from "./components/IntroBox/IntroBox";
 import './App.css';
 
 // App.jsx
 import { SceneProvider } from "./contexts/SceneContext";
 
-import ButtonPanel from "./components/ButtonPanel";
 
 function App() {
   return (
     <SceneProvider>
-      <Bedroom />
-      <ButtonPanel />
+      <ButtonPanel>
+
+      </ButtonPanel>
+      <IntroBox>
+        Welcome
+      </IntroBox>
+      <Bedroom>
+        
+      </Bedroom>
     </SceneProvider>
   );
 }

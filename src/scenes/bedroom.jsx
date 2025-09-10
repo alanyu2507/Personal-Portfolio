@@ -8,7 +8,7 @@ import gsap from 'gsap';
 
 
 function Model() {
-  const { scene } = useGLTF("/models/test2.glb");
+  const { scene } = useGLTF("/models/testv3.glb");
 
   scene.traverse((child) => {
     if (child.isMesh) {
@@ -29,9 +29,9 @@ export default function Bedroom() {
     >
       <ambientLight intensity={0.3} />
       <directionalLight
-        color="rgba(180, 222, 195, 1)"
+        color="rgba(255, 255, 255, 1)"
         position={[0, 1000, 0]}
-        intensity={5}
+        intensity={0.2}
         castShadow
       />
 
@@ -49,12 +49,6 @@ export default function Bedroom() {
           radius={0.5}
         />
 
-      {/* Vignette */}
-      <Vignette
-        eskil={false}          // use a softer falloff
-        offset={0.3}           // how far vignette starts
-        darkness={0.7}         // intensity of dark edges
-      />
       </EffectComposer>
     </Canvas>
   );
