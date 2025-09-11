@@ -2,13 +2,14 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Edges } from '@react-three/drei';
 import { Suspense, useState } from 'react';
 import { EffectComposer, Bloom, SSAO, Vignette } from '@react-three/postprocessing';
+
 import * as THREE from 'three';
 import gsap from 'gsap';
 
 
 
 function Model() {
-  const { scene } = useGLTF("/models/testv3.glb");
+  const { scene } = useGLTF("/models/export.glb");
 
   scene.traverse((child) => {
     if (child.isMesh) {
@@ -27,11 +28,11 @@ export default function Bedroom() {
       gl={{ antialias: true }}
       shadows
     >
-      <ambientLight intensity={0.3} />
+      <ambientLight intensity={1.5} />
       <directionalLight
         color="rgba(255, 255, 255, 1)"
         position={[0, 1000, 0]}
-        intensity={0.2}
+        intensity={0.5}
         castShadow
       />
 

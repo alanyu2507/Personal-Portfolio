@@ -1,0 +1,18 @@
+.appearing-text {
+  display: inline-block;
+  white-space: pre-wrap; /* preserves spaces and line breaks */
+
+  font-family: 'narrow_rectangle-7', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: rgb(255, 255, 255);
+}
+
+.letter {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.letter.visible {
+  opacity: 1;
+}
