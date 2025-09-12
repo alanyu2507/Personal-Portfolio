@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import IntroBox from "../IntroBox/IntroBox";
 import AppearingText from "./AppearingText";
+import { IntroContext } from "../../contexts/IntroContext";
 
 export default function IntroSequence({ children }) {
   const [show, setShow] = useState(true);
+  const { introFinished, setIntroFinished } = useContext(IntroContext);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShow(false), 3500);
-    return () => clearTimeout(timer);
-  }, []);
+
+useEffect(() => {
+  const timer1 = setTimeout(() => setShow(false), 3500);
+  const timer2 = setTimeout(() => setIntroFinished(true), 4600); // 3500 + 500
+
+  return () => {
+    clearTimeout(timer1);
+    clearTimeout(timer2);
+  };
+}, []);
+
 
   // Visible animation only for IntroBox
   const boxVariants = {

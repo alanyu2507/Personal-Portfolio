@@ -35,8 +35,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  
-  background: url("../../public/images/Islanders.jpg") no-repeat center center fixed;
+  overflow: hidden;
+  /*background: url("../../public/images/Islanders.jpg") no-repeat center center fixed;*/
   background-size: cover;
 }
 

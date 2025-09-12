@@ -1,7 +1,9 @@
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Edges } from '@react-three/drei';
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useContext } from 'react';
 import { EffectComposer, Bloom, SSAO, Vignette } from '@react-three/postprocessing';
+import { SceneContext } from "../contexts/SceneContext.jsx";
+import { IntroContext } from "../contexts/IntroContext.jsx";
 
 import * as THREE from 'three';
 import gsap from 'gsap';
@@ -21,11 +23,20 @@ function Model() {
 }
 
 export default function Bedroom() {
+  const { setCameraPosition, setCameraTarget, setActiveScene } = useContext(SceneContext);
+  const { introFinished, setIntroFinished } = useContext(IntroContext);
+  
   return (
+    <div>
+    {introFinished && (
     <Canvas
       camera={{ position: [0, 2, 5] }}
-      style={{ width: '100vw', height: '100vh' }}
       gl={{ antialias: true }}
+      style={{
+      width: '100vw',
+      height: '100vh',
+      visibility: introFinished ? 'visible' : 'hidden', // hide until ready
+      }}
       shadows
     >
       <ambientLight intensity={1.5} />
@@ -52,5 +63,7 @@ export default function Bedroom() {
 
       </EffectComposer>
     </Canvas>
+    )}
+    </div>
   );
 }

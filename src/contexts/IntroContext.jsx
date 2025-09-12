@@ -4,11 +4,11 @@ import { createContext, useState } from "react";
 export const IntroContext = createContext();
 
 export const IntroProvider = ({ children }) => {
-  const [IntroFinished, setIntroFinished] = useState(false);
+  const [introFinished, setIntroFinished] = useState(false);
 
   return (
     <IntroContext.Provider value={{
-      IntroFinished,
+      introFinished,
       setIntroFinished
     }}>
       {children}
