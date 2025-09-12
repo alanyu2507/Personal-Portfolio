@@ -16,8 +16,10 @@ export default function InfoBox() {
               hideInfoBox();
             }}>X</button>
         <div className="infoContent">
-            
+            <TypedText  speed={10} delay={300}>
                 {content}
+            </TypedText>
+                
             
         </div>
         </div>
