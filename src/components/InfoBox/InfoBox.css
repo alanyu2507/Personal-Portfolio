@@ -1,0 +1,88 @@
+.infoBoxBackground {
+  position: fixed;
+  top: 15%;
+  right: 5%;
+  width: 20%;
+  height: 70%;
+  
+  justify-content: center; 
+  
+  background: rgba(255, 255, 255, 0.8); /* fully opaque white */
+  border: 1px solid rgb(255, 255, 255, 0.5); /* thin white border */
+  backdrop-filter: blur(10px);           
+  display: flex;
+  flex-direction: column;
+  
+  box-sizing: border-box; /* ensures border doesn't add to width */
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  
+
+  transform: scaleY(0);          /* collapsed state */
+  transform-origin: center;      /* expand from center */
+  animation: start 1s cubic-bezier(0.0, 0.5, 0.75, 1) forwards;
+
+  font-family: 'narrow_rectangle-7', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: white;
+  
+
+  
+}
+
+@keyframes start {
+  0%   { transform: scaleY(0); }      /* start */
+  5%   { transform: scaleY(0.02); background: rgba(255, 255, 255, 1);}   /* very little growth in first 5% (slow) */
+  20%  { transform: scaleY(0.6); }    /* jumps to 60% height fast */
+  80%  { transform: scaleY(0.95); background: rgba(255, 255, 255, 0.05);}   /* slows down, small progress */
+  100% { transform: scaleY(1); background: rgba(255, 255, 255, 0.05);}      /* final */
+}
+
+.closeButton {
+    position: absolute;
+    top:1%;
+    right:1%;
+    background: rgba(255, 255, 255, 0.0); /* semi-transparent white */
+  border: none;                
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-family: 'narrow_rectangle-7', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: white;
+  width: fit-content;  
+  transition: background 0.3s, transform 0.2s, border-color 0.5s ease;
+  
+}
+
+.closeButton:hover {
+  
+    border-left: 1px solid rgba(255, 255, 255, 0.5); /* thin white border */
+    border-right: 1px solid rgba(255, 255, 255, 0.5); /* thin white border */
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-radius: 0;
+  
+}
+
+.infoContent {
+    height: 95%;
+    margin-top:10%;
+    padding:3%;
+    line-height: 1;
+    white-space: pre-wrap; /* preserves spaces and line breaks */
+  font-family: inherit;
+  font-family: 'narrow_rectangle-7', sans-serif;
+  font-size: 0.9rem;
+  text-align: left;
+
+  color: rgb(255, 255, 255);
+}
+
+

@@ -9,6 +9,7 @@ export default function IntroBox({ children, variants }) {
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
+
   }}>
       <motion.div
       className="IntroBox"

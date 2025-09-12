@@ -47,7 +47,7 @@ useEffect(() => {
     <AnimatePresence>
       {show && (
         <motion.div
-          style={{ position: "relative", width: "80vw", height: "80vh" }}
+          style={{ position: "fixed", width: "100vw", height: "100vh", margin: "0", top: "0", left: "0"}}
           variants={wrapperVariants}
           initial={false}   // skip initial animation on wrapper
           animate={false}   // skip animate on wrapper
