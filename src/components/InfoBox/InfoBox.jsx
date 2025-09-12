@@ -2,6 +2,7 @@
 import { useContext } from "react";
 import { InfoBoxContext } from "../../contexts/InfoBoxContext";
 import TypedText from "../Animations/TypedText";
+import TabButton from "./TabButton";
 import "./InfoBox.css";
 
 export default function InfoBox() {
@@ -15,6 +16,14 @@ export default function InfoBox() {
              <button className="closeButton" onClick={() => {
               hideInfoBox();
             }}>X</button>
+        <div className="infoBoxBar">
+            <TabButton>
+                Design
+            </TabButton>
+            <TabButton>
+                Future
+            </TabButton>
+        </div>
         <div className="infoContent">
             <TypedText  speed={10} delay={300}>
                 {content}

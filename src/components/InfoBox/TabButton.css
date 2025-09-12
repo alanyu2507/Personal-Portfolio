@@ -1,0 +1,23 @@
+.tab-button {
+  height: 80%;             /* take up 80% of the parent div's height */
+  width: fit-content;      /* width adjusts to text inside */
+  padding: 0 12px;         /* horizontal padding for spacing */
+  font-size: 1rem;         /* adjust as needed */
+  font-family: sans-serif; /* or your custom font */
+  color: white;
+  background: rgba(255, 255, 255, 0.1); /* semi-transparent background */
+  border: 1px solid white;
+  border-radius: 0;      /* subtle rounded corners */
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.3s, transform 0.2s;
+}
+
+.tab-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.03);
+}

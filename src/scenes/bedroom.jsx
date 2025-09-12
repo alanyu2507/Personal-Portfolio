@@ -9,7 +9,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 function Model() {
-  const { scene } = useGLTF(import.meta.env.BASE_URL + "models/export.glb");
+  const { scene } = useGLTF("models/export.glb");
 
   scene.traverse((child) => {
     if (child.isMesh) {
