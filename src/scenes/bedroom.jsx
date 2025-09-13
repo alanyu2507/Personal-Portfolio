@@ -14,7 +14,7 @@ function Loader() {
   return (
     <Html center>
       <div style={{ color: "white", fontSize: "1.5rem" }}>
-        Loading {progress} %
+        Loading...
       </div>
     </Html>
   );
