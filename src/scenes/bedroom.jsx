@@ -1,5 +1,5 @@
 import { Canvas, useThree } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Edges } from '@react-three/drei';
+import { OrbitControls, useGLTF, Edges, useProgress, Html } from '@react-three/drei';
 import { Suspense, useState, useContext, useEffect, useRef } from 'react';
 import { EffectComposer, Bloom, SSAO, Vignette } from '@react-three/postprocessing';
 import { SceneContext } from "../contexts/SceneContext.jsx";
@@ -8,7 +8,21 @@ import { IntroContext } from "../contexts/IntroContext.jsx";
 import * as THREE from 'three';
 import gsap from 'gsap';
 
+function Loader() {
+  // useProgress gives you progress percentage from drei
+  const { progress } = useProgress();
+  return (
+    <Html center>
+      <div style={{ color: "white", fontSize: "1.5rem" }}>
+        Loading {progress.toFixed(0)} %
+      </div>
+    </Html>
+  );
+}
+
 function Model() {
+
+  
   const { scene } = useGLTF("models/export.glb");
 
   scene.traverse((child) => {
@@ -141,7 +155,7 @@ export default function Bedroom() {
           castShadow
         />
 
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader/>}>
           <Model />
         </Suspense>
 
