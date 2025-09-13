@@ -1,12 +1,14 @@
 // components/UI/InfoBox.jsx
 import { useContext } from "react";
 import { InfoBoxContext } from "../../contexts/InfoBoxContext";
+import { SceneContext } from "../../contexts/SceneContext";
 import TypedText from "../Animations/TypedText";
 import TabButton from "./TabButton";
 import "./InfoBox.css";
 
 export default function InfoBox() {
-  const { content, visible, hideInfoBox } = useContext(InfoBoxContext);
+  const { content, visible, tabs, tabContents, hideInfoBox, showInfoBox, tabCameraRotations, tabCameraPositions} = useContext(InfoBoxContext);
+  const {setCameraPosition, setCameraRotation} = useContext(SceneContext);
 
   if (!visible) return null; // don’t render if hidden
 
@@ -17,19 +19,18 @@ export default function InfoBox() {
               hideInfoBox();
             }}>X</button>
         <div className="infoBoxBar">
-            <TabButton>
-                Design
-            </TabButton>
-            <TabButton>
-                Future
-            </TabButton>
+            {tabs.map((tab, index) => (
+                <TabButton key={index} onClick={() => {
+                    showInfoBox(tabContents[index]);
+                    setCameraPosition(tabCameraPositions[index]);
+                    setCameraRotation(tabCameraRotations[index]);
+                }}>
+                    {tab}
+                </TabButton>
+            ))}
         </div>
         <div className="infoContent">
-            <TypedText  speed={10} delay={300}>
-                {content}
-            </TypedText>
-                
-            
+                {content}    
         </div>
         </div>
         
