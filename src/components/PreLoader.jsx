@@ -5,21 +5,18 @@ export default function Preloader({ children }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    async function loadEverything() {
-      // Wait for DOM + images + other browser assets
-      await new Promise((res) =>
-        window.addEventListener("load", res, { once: true })
-      );
+  async function loadEverything() {
+    // Wait for fonts to load
+    await document.fonts.ready;
 
-      // Wait for fonts
-      await document.fonts.ready;
-
-      // Once both are done, mark ready
+    // Delay half a second before marking ready
+    setTimeout(() => {
       setReady(true);
-    }
+    }, 100);
+  }
 
-    loadEverything();
-  }, []);
+  loadEverything();
+}, []);
 
   if (!ready) {
     return (
