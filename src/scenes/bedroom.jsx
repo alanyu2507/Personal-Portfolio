@@ -1,12 +1,18 @@
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Edges, useProgress, Html } from '@react-three/drei';
-import { Suspense, useState, useContext, useEffect, useRef } from 'react';
+import { Suspense, useState, useContext, useEffect, useRef, useMemo } from 'react';
 import { EffectComposer, Bloom, SSAO, Vignette } from '@react-three/postprocessing';
 import { SceneContext } from "../contexts/SceneContext.jsx";
 import { IntroContext } from "../contexts/IntroContext.jsx";
+import { DRACOLoader } from 'three/examples/jsm/Addons.js';
+import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 
 import * as THREE from 'three';
 import gsap from 'gsap';
+
+
+
+
 
 function Loader() {
   // useProgress gives you progress percentage from drei
@@ -19,17 +25,55 @@ function Loader() {
     </Html>
   );
 }
+//loaders
+export function Model() {
+  const { scene } = useGLTF("/Personal-Portfolio/models/compressed.glb");
 
-function Model() {
+  /*const loadedTextures = useMemo(() => {
+    const textureLoader = new THREE.TextureLoader();
 
-  
-  const { scene } = useGLTF("models/export.glb");
+    const textureMap = {
+      Primary: {
+        day: "/Personal-Portfolio/models/textures/RoomPrimary.webp"
+      },
+      Secondary: {
+        day: "/Personal-Portfolio/models/textures/RoomSecondary.webp"
+      },
+      Tertiary: {
+        day: "/Personal-Portfolio/models/textures/RoomTertiary.webp"
+      },
+      Frames: {
+        day: "/Personal-Portfolio/models/textures/Frames.webp"
+      },
+    };
 
-  scene.traverse((child) => {
-    if (child.isMesh) {
-      //console.log(child.name);
-    }
-  });
+    const result = {};
+    Object.entries(textureMap).forEach(([key, paths]) => {
+      const dayTexture = textureLoader.load(paths.day);
+      dayTexture.flipY = false;
+       // 👈 important for GLTF UVs
+      result[key] = { day: dayTexture };
+    });
+
+    return result;
+  }, []);
+
+  useMemo(() => {
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        Object.keys(loadedTextures).forEach((key) => {
+          console.log(child.name);
+          if (child.name.includes(key)) {
+            child.material = new THREE.MeshBasicMaterial({
+            
+              map: loadedTextures[key].day,
+            });
+            
+          }
+        });
+      }
+    });
+  }, [scene, loadedTextures]);*/
 
   return <primitive object={scene} />;
 }
