@@ -8,9 +8,9 @@ import "./ButtonPanel.css";
 import AppearingText from "../Animations/AppearingText.jsx";
 
 export default function ButtonPanel() {
-  const { setCameraPosition, setCameraRotation, cameraPosition, cameraRotation} = useContext(SceneContext);
-  const { introFinished, setIntroFinished } = useContext(IntroContext);
-  const {showInfoBox, tabs, setTabs, setTabContents, setTabCameraPositions, setTabCameraRotations} = useContext(InfoBoxContext);
+  const { setCameraPosition, setCameraRotation, setActiveScene, setProjectsHovered} = useContext(SceneContext);
+  const { introFinished } = useContext(IntroContext);
+  const {showInfoBox, setTabs, setTabContents, setTabCameraPositions, setTabCameraRotations} = useContext(InfoBoxContext);
 
   return (
     <div>
@@ -19,36 +19,37 @@ export default function ButtonPanel() {
 
           <CustomButton
             onClick={() => {
+              setActiveScene("about");
               setCameraRotation([1.769, 2, 0.76]);
               setCameraPosition([0.128, 2.14, 0.821]);
               setTabCameraRotations([[1.769, 2, 0.76], [1.769, 2, 0.76], [1.769, 2, 0.76]]);
               setTabCameraPositions([[0.128, 2.14, 0.821], [0.128, 2.14, 0.821], [0.128, 2.14, 0.821]]);
               showInfoBox(
-                <div class="scrollable">
+                <div className="scrollable">
                   Hi, I'm Alan! I'm a Chinese Canadian who likes to mess around and find out. (Specifically tech) That portrait on the right is me. Feel free to poke around my website to learn more about it or my past projects., 
                 </div>);
               setTabs(["Me", "Education", "Skills"]);
               setTabContents([
-                <div class="scrollable">
+                <div className="scrollable">
                   Hi, I'm Alan! I'm a Chinese Canadian who likes to mess around and find out. (Specifically tech) That portrait on the right is me. Feel free to poke around my website to learn more about it or my past projects., 
                 </div>,
-                <div class="scrollable">
+                <div className="scrollable">
                  
                   I'm currently a Freshman at the University of Michigan studying Electrical Engineering. 
                   <p>Relevant courses include EECS280, EECS201 and ENGR100.</p>
                   <p>I've also taken CS106B, Programming Abstractions, at Stanford.</p>
                   
                 </div>, 
-                <div class="scrollable">
-                  <h2 class="header1">
+                <div className="scrollable">
+                  <h2 className="header1">
                     Languages:
                   </h2>
                     C++, C#, Python, MATLAB, PyTorch, React.js, Three.js, Java, Javascript, Firebase, WSL2, HTML/CSS
-                  <h2 class="header">
+                  <h2 className="header">
                     Design/Engineering:
                   </h2>
                     Fusion 360, Blender, KiCad, Altium Designer, Unity, Unreal Engine 5
-                  <h2 class="header">
+                  <h2 className="header">
                     Misc:
                   </h2>
                     Communication, Collaboration, Fullstack Development
@@ -63,13 +64,14 @@ export default function ButtonPanel() {
 
           <CustomButton
           onClick={() => {
+              setActiveScene("site");
               setCameraRotation([-1.195, 1.533, -0.722]);
               setCameraPosition([1.169, 1.104, 4.354]);
               setTabCameraRotations([[-1.195, 1.533, -0.722], [-1.195, 1.533, -0.722], [-1.195, 1.533, -0.722]]);
               setTabCameraPositions([[1.169, 1.104, 4.354], [1.169, 1.104, 4.354], [1.169, 1.104, 4.354]]);
               showInfoBox(
-                <div class="scrollable">
-                  <h2 class="header1">3D:</h2>
+                <div className="scrollable">
+                  <h2 className="header1">3D:</h2>
                     The 3D background you see was mostly modeled and completely textured by me in Blender. It's being rendered with WebGL through the Three.js library. Since web rendering is extremely resource heavy and slow, I actually set up all the lighting, bloom, and other effects in Blender and then baked it into an image texture. No actual lighting is being rendered by Three.js making the site pretty optimized.
                   <h2>
                     Web Design:
@@ -79,18 +81,18 @@ export default function ButtonPanel() {
               );
               setTabs(["Design", "Conception", "Future"]);
               setTabContents([
-                <div class="scrollable">
-                  <h2 class="header1">3D:</h2>
+                <div className="scrollable">
+                  <h2 className="header1">3D:</h2>
                     The 3D background you see was mostly modeled and completely textured by me in Blender. It's being rendered with WebGL through the Three.js library. Since web rendering is extremely resource heavy and slow, I actually set up all the lighting, bloom, and other effects in Blender and then baked it into an image texture. No actual lighting is being rendered by Three.js making the site pretty optimized.
                   <h2>
                     Web Design:
                   </h2>
                   Everything else was coded using React.js. The 3D background is actually contained inside a React component. This is how information is passed from clicking a button to animating the camera in the 3D space. Containers, text animations, and buttons were all coded to be modular and reusable to make expanding my portfolio as easy as possible. Go to the Future tab to learn more about my plans for this website.
                 </div>, 
-                <div class="scrollable">
+                <div className="scrollable">
                   I actually made this website just for my V1 application. When I was prompted to include a portfolio and realized I didn't have one, I knew this was a great oppurtunity to learn and grow. I built this site in one week with no previous React experience and minimal Three.js experience. It's still pretty messy and there's a lot to work on.
                 </div>, 
-                <div class="scrollable">
+                <div className="scrollable">
                   I plan to 3D model a different room for each of my projects. The project button on the left would switch the scene and basically give a tour of each of those rooms, while also explaining the process behind my projects. There's still some optimization and shader stuff I need to work on in this scene though.
                 </div>
               ]);
@@ -101,11 +103,14 @@ export default function ButtonPanel() {
           </CustomButton>
 
           <CustomButton
+          onMouseEnter={() => setProjectsHovered(true)}
+          onMouseLeave={() => setProjectsHovered(false)}
           onClick={() => {
+              setActiveScene("projects");
               setCameraRotation([-1.195, 1.533, -0.722]);
               setCameraPosition([-3.307, 0.762, 0.085]);
-              showInfoBox(<div class="scrollable">
-                  <h2 class="header1">
+              showInfoBox(<div className="scrollable">
+                  <h2 className="header1">
                     Volleyball Machine
                   </h2>
                   <h3>
@@ -138,8 +143,8 @@ export default function ButtonPanel() {
               setTabCameraRotations([[1.7, 1.4, -0.04], [0.7, 1, -1.7], [1.4, 3.1, -0.5], [-2.1, 0.5, 1.5], [0, 0, 0], [-3, 0.7, 2]]);
               setTabs(["1", "2", "3", "4", "5", "6"]);
               setTabContents([
-                <div class="scrollable">
-                  <h2 class="header1">
+                <div className="scrollable">
+                  <h2 className="header1">
                     Volleyball Machine
                   </h2>
                   <h3>
@@ -169,8 +174,8 @@ export default function ButtonPanel() {
                     </p>
                 </div>,
 
-                <div class="scrollable">
-                  <h2 class="header1">
+                <div className="scrollable">
+                  <h2 className="header1">
                     8-Ball Game 
                   </h2>
                   <h3>
@@ -187,26 +192,22 @@ export default function ButtonPanel() {
 
                 </div>,
 
-                <div class="scrollable">
-                  <h2 class="header1">
+                <div className="scrollable">
+                  <h2 className="header1">
                     Factorio SpiderBot 
                   </h2>
                   <h3>
                     Robotics
                   </h3>
                   <p>
-                    Inspired by the spiderbot from Factorio, I designed my own Spiderbot using Fusion 360 and some servo motors. Everything was custom desinged and build. Unfortunately this was a massive failure because I didn't account that the legs would be too heavy for the hip servo to move.
+                    The hexapod CAD base is from MakeYourPet github. Software was coded entirely from scratch. From the inverse kinmatics, ps4 controller interpretation, vector translation to individual legs, individual gait algorithm and gait controller and more. 
                   </p>
                   Inspiration:
                   <img src="Images/factorio.png"  alt="Hardware" style={{
                       width:"90%"
 
                     }}/>
-                  3D Printing:
-                  <img src="Images/Spidertron.PNG"  alt="Hardware" style={{
-                      width:"90%"
-
-                    }}/>
+                  
                   Assembeled:
                   <img src="Images/Assembled.jpg"  alt="Hardware" style={{
                       width:"90%"
@@ -214,8 +215,8 @@ export default function ButtonPanel() {
                     }}/>
                 </div>,
 
-                <div class="scrollable">
-                  <h2 class="header1">
+                <div className="scrollable">
+                  <h2 className="header1">
                     Gundams
                   </h2>
                   <h3>
@@ -237,8 +238,8 @@ export default function ButtonPanel() {
                   </a>
                 </div>,
 
-                <div class="scrollable">
-                  <h2 class="header1">
+                <div className="scrollable">
+                  <h2 className="header1">
                     Recreating BG3
                   </h2>
                   <h3>
@@ -259,8 +260,8 @@ export default function ButtonPanel() {
                     }}/>
                 </div>,
 
-                <div class="scrollable">
-                  <h2 class="header1">
+                <div className="scrollable">
+                  <h2 className="header1">
                     Titanfall 2 Trailer 
                   </h2>
                   <h3>

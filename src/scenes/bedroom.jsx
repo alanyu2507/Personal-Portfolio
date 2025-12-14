@@ -1,11 +1,9 @@
 import { Canvas, useThree } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Edges, useProgress, Html } from '@react-three/drei';
-import { Suspense, useState, useContext, useEffect, useRef, useMemo } from 'react';
-import { EffectComposer, Bloom, SSAO, Vignette } from '@react-three/postprocessing';
+import { OrbitControls, useGLTF, Html } from '@react-three/drei';
+import { Suspense, useContext, useEffect, useRef } from 'react';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { SceneContext } from "../contexts/SceneContext.jsx";
 import { IntroContext } from "../contexts/IntroContext.jsx";
-import { DRACOLoader } from 'three/examples/jsm/Addons.js';
-import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 
 import * as THREE from 'three';
 import gsap from 'gsap';
@@ -15,8 +13,6 @@ import gsap from 'gsap';
 
 
 function Loader() {
-  // useProgress gives you progress percentage from drei
-  const { progress } = useProgress();
   return (
     <Html center>
       <div style={{ color: "white", fontSize: "1.5rem" }}>
@@ -26,77 +22,10 @@ function Loader() {
   );
 }
 //loaders
-export function Model() {
-  const { scene } = useGLTF("/Personal-Portfolio/models/compressed.glb");
-
-  /*const loadedTextures = useMemo(() => {
-    const textureLoader = new THREE.TextureLoader();
-
-    const textureMap = {
-      Primary: {
-        day: "/Personal-Portfolio/models/textures/RoomPrimary.webp"
-      },
-      Secondary: {
-        day: "/Personal-Portfolio/models/textures/RoomSecondary.webp"
-      },
-      Tertiary: {
-        day: "/Personal-Portfolio/models/textures/RoomTertiary.webp"
-      },
-      Frames: {
-        day: "/Personal-Portfolio/models/textures/Frames.webp"
-      },
-    };
-
-    const result = {};
-    Object.entries(textureMap).forEach(([key, paths]) => {
-      const dayTexture = textureLoader.load(paths.day);
-      dayTexture.flipY = false;
-       // 👈 important for GLTF UVs
-      result[key] = { day: dayTexture };
-    });
-
-    return result;
-  }, []);
-
-  useMemo(() => {
-    scene.traverse((child) => {
-      if (child.isMesh) {
-        Object.keys(loadedTextures).forEach((key) => {
-          console.log(child.name);
-          if (child.name.includes(key)) {
-            child.material = new THREE.MeshBasicMaterial({
-            
-              map: loadedTextures[key].day,
-            });
-            
-          }
-        });
-      }
-    });
-  }, [scene, loadedTextures]);*/
+export function Model({ modelPath }) {
+  const { scene } = useGLTF(modelPath);
 
   return <primitive object={scene} />;
-}
-
-// CameraLogger logs the camera transform to console
-function CameraLogger(cameraInfo) {
-  const { camera } = useThree();
-
-  useEffect(() => {
-    const logCamera = () => {
-      //console.log("Camera Position:", camera.position);
-      console.log("Camera Rotation (Euler):", cameraInfo);
-    };
-
-    // Log once on mount
-    logCamera();
-
-    // Optionally log every second
-    const interval = setInterval(logCamera, 1000);
-    return () => clearInterval(interval);
-  }, [camera]);
-
-  return null;
 }
 
 function ClickLogger() {
@@ -162,8 +91,8 @@ function CameraController({ targetPosition, targetRotation }) {
 }
 
 export default function Bedroom() {
-  const { cameraPosition, cameraRotation} = useContext(SceneContext);
-  const { introFinished, setIntroFinished } = useContext(IntroContext);
+  const { cameraPosition, cameraRotation, activeScene} = useContext(SceneContext);
+  const { introFinished } = useContext(IntroContext);
 
   
   return (
@@ -200,10 +129,21 @@ export default function Bedroom() {
         />
 
         <Suspense fallback={<Loader/>}>
-          <Model />
+          {/* Select model by activeScene */}
+          <Model
+            modelPath={
+              activeScene === "about"
+                ? "/Personal-Portfolio/models/compressed.glb"
+                : activeScene === "site"
+                ? "/Personal-Portfolio/models/compressed.glb"
+                : activeScene === "projects"
+                ? "/Personal-Portfolio/models/compressed.glb"
+                : "/Personal-Portfolio/models/compressed.glb"
+            }
+          />
         </Suspense>
 
-        <ClickLogger></ClickLogger>
+        {import.meta.env.MODE === 'development' && <ClickLogger />}
 
         <EffectComposer>
           <Bloom

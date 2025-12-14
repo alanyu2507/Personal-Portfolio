@@ -7,6 +7,7 @@ export const SceneProvider = ({ children }) => {
   const [cameraPosition, setCameraPosition] = useState([0, 5, 10]);
   const [cameraRotation, setCameraRotation] = useState([0, 0, 0]);
   const [activeScene, setActiveScene] = useState("default");
+  const [projectsHovered, setProjectsHovered] = useState(false);
 
   return (
     <SceneContext.Provider value={{
@@ -15,7 +16,9 @@ export const SceneProvider = ({ children }) => {
       cameraRotation,
       setCameraRotation,
       activeScene,
-      setActiveScene
+      setActiveScene,
+      projectsHovered,
+      setProjectsHovered
     }}>
       {children}
     </SceneContext.Provider>
